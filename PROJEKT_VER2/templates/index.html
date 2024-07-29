@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator brukarski</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Kalkulator brukarski</h1>
+
+        <!-- Instrukcje korzystania z kalkulatora -->
+        <section class="instructions">
+            <h2>Jak korzystać z kalkulatora brukarskiego:</h2>
+            <ul>
+                <li><strong>Materiał nawierzchniowy:</strong> Wybierz materiał nawierzchniowy, którego zamierzasz użyć. Obliczenia uwzględniają zapas na docięcia i odpady.</li>
+                <li><strong>Powierzchnia (m²):</strong> Podaj wielkość powierzchni w metrach kwadratowych. Możesz ją obliczyć, mnożąc długość przez szerokość.</li>
+                <li><strong>Głębokość korytowania:</strong> Wprowadź głębokość, na którą zamierzasz wykopać grunt, jeśli chcesz obliczyć ilość ziemi do wywiezienia. (Opcjonalne)</li>
+                <li><strong>Warstwa podsypki:</strong> Wybierz materiał do wykonania warstwy wyrównującej pod kostkę lub płytami tarasowymi.</li>
+                <li><strong>Grubość warstwy podsypki (cm):</strong> Podaj grubość warstwy podsypki w centymetrach.</li>
+                <li><strong>Warstwa podbudowy:</strong> Wybierz materiał do wykonania podbudowy, który wpłynie na trwałość nawierzchni.</li>
+                <li><strong>Grubość warstwy podbudowy (cm):</strong> Podaj grubość warstwy podbudowy w centymetrach.</li>
+                <li><strong>Grubość warstwy rozsączającej (cm):</strong> Podaj grubość warstwy rozsączającej, zazwyczaj wykonanej z piasku. Jeżeli podbudowę wykonujesz z kruszywa łamanego, warstwa rozsączająca może wynosić 0 cm.</li>
+            </ul>
+        </section>
+
+        <!-- Formularz dodawania nowych projektów -->
+        <form method="POST" action="{{ url_for('index') }}">
+            <fieldset>
+                <legend>Dodaj Nowy Projekt</legend>
+
+                <!-- Nazwa Projektu -->
+                <div class="form-group">
+                    <label for="name">Nazwa Projektu</label>
+                    <input type="text" id="name" name="name" placeholder="Nazwa Projektu" required>
+                </div>
+
+                <!-- Powierzchnia -->
+                <div class="form-group">
+                    <label for="surface_area">Powierzchnia (m²)</label>
+                    <input type="number" id="surface_area" name="surface_area" step="0.01" placeholder="Powierzchnia (m²)" required>
+                </div>
+
+                <!-- Płytki -->
+                <div class="form-group two-fields">
+                    <div>
+                        <label for="tile_length">Długość Płytki (cm)</label>
+                        <input type="number" id="tile_length" name="tile_length" step="0.01" placeholder="Długość Płytki (cm)" required>
+                    </div>
+                    <div>
+                        <label for="tile_width">Szerokość Płytki (cm)</label>
+                        <input type="number" id="tile_width" name="tile_width" step="0.01" placeholder="Szerokość Płytki (cm)" required>
+                    </div>
+                </div>
+
+                <!-- Podkład i Podłoże -->
+                <div class="form-group two-fields">
+                    <div>
+                        <label for="sublayer_thickness">Grubość Warstwy Podsypki (cm)</label>
+                        <input type="number" id="sublayer_thickness" name="sublayer_thickness" step="0.01" placeholder="Grubość Warstwy Podsypki (cm)" required>
+                    </div>
+                    <div>
+                        <label for="base_thickness">Grubość Warstwy Podbudowy (cm)</label>
+                        <input type="number" id="base_thickness" name="base_thickness" step="0.01" placeholder="Grubość Warstwy Podbudowy (cm)" required>
+                    </div>
+                </div>
+
+                <!-- Rozsączanie i Wykop -->
+                <div class="form-group two-fields">
+                    <div>
+                        <label for="sand_layer_thickness">Grubość Warstwy Rozsączającej (cm)</label>
+                        <input type="number" id="sand_layer_thickness" name="sand_layer_thickness" step="0.01" placeholder="Grubość Warstwy Rozsączającej (cm)" required>
+                    </div>
+                    <div>
+                        <label for="excavation_depth">Głębokość Korytowania (cm)</label>
+                        <input type="number" id="excavation_depth" name="excavation_depth" step="0.01" placeholder="Głębokość Korytowania (cm)" optional>
+                    </div>
+                </div>
+
+                <!-- Fuga -->
+                <div class="form-group two-fields">
+                    <div>
+                        <label for="joint_width">Szerokość Fugi (cm)</label>
+                        <input type="number" id="joint_width" name="joint_width" step="0.01" placeholder="Szerokość Fugi (cm)" required>
+                    </div>
+                    <div>
+                        <label for="joint_depth">Głębokość Fugi (cm)</label>
+                        <input type="number" id="joint_depth" name="joint_depth" step="0.01" placeholder="Głębokość Fugi (cm)" required>
+                    </div>
+                </div>
+
+                <!-- Obrzeże -->
+                <div class="form-group two-fields">
+                    <div>
+                        <label for="border_length">Długość Obrzeża (m)</label>
+                        <input type="number" id="border_length" name="border_length" step="0.01" placeholder="Długość Obrzeża (m)" required>
+                    </div>
+                    <div>
+                        <label for="border_subs">Podbudowa Obrzeża (cm)</label>
+                        <input type="number" id="border_subs" name="border_subs" step="0.01" placeholder="Podbudowa Obrzeża (cm)" required>
+                    </div>
+                </div>
+
+                <!-- Grubość Warstwy Ziemi -->
+                <div class="form-group">
+                    <label for="border_earth">Grubość Warstwy Ziemi (cm)</label>
+                    <input type="number" id="border_earth" name="border_earth" step="0.01" placeholder="Grubość Warstwy Ziemi (cm)" required>
+                </div>
+
+                <button type="submit">Dodaj Projekt</button>
+            </fieldset>
+        </form>
+
+        <!-- Wyświetlanie wiadomości -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul class="flashes">
+            {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+
+        <!-- Sekcja wyników -->
+        {% if projects %}
+        <section class="results">
+            <h2>Wyniki Obliczeń</h2>
+            <div class="results-container">
+                {% for project in projects %}
+                <div class="project-result">
+                    <p><strong>Nazwa Projektu:</strong> {{ project.name }}</p>
+                    <p><strong>Ilość materiału nawierzchniowego:</strong> {{ project.surface_area | round(2) }} m²</p>
+                    <p><strong>Urobek z korytowania:</strong> {{ project.excavation | round(2) }} m³</p>
+                    <p><strong>Waga podsypki:</strong> {{ project.sublayer | round(2) }} t</p>
+                    <p><strong>Objętość podbudowy:</strong> {{ project.base | round(2) }} m³</p>
+                    <p><strong>Waga piasku:</strong> {{ project.sand | round(2) }} t</p>
+                    <p><strong>Ilość fugi:</strong> {{ project.fugue | round(2) }} kg</p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        
+        
+        {% endif %}
+
+        <!-- Tabela z projektami -->
+        {% if projects %}
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nazwa</th>
+                        <th>Powierzchnia (m²)</th>
+                        <th>Płytki</th>
+                        <th>Fuga</th>
+                        <th>Podkład</th>
+                        <th>Podłoże</th>
+                        <th>Piasek</th>
+                        <th>Wykop</th>
+                        <th>Akcje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for project in projects %}
+                    <tr>
+                        <td>{{ project.name }}</td>
+                        <td>{{ project.surface_area | round(2) }}</td>
+                        <td>{{ project.tiles | round(2) }}</td>
+                        <td>{{ project.fugue | round(2) }}</td>
+                        <td>{{ project.sublayer | round(2) }}</td>
+                        <td>{{ project.base | round(2) }}</td>
+                        <td>{{ project.sand | round(2) }}</td>
+                        <td>{{ project.excavation | round(2) }}</td>
+                        <td class="action-buttons">
+                            <a href="{{ url_for('edit', project_id=project.id) }}" class="edit">Edytuj</a>
+                            <a href="{{ url_for('download_pdf', project_id=project.id) }}" class="download">Pobierz PDF</a>
+                            <form method="POST" action="{{ url_for('delete', project_id=project.id) }}" style="display:inline;">
+                                <button type="submit" class="delete">Usuń</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p>Brak projektów do wyświetlenia.</p>
+        {% endif %}
+    </div>
+</body>
+
+</html>

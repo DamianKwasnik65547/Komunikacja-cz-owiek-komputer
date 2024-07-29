@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edytuj Projekt</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Edytuj Projekt: {{ project.name }}</h1>
+
+        <!-- Form do edycji projektu -->
+        <form method="POST" action="{{ url_for('edit', project_id=project.id) }}">
+            <div class="form-group">
+                <label for="name">Nazwa Projektu:</label>
+                <input type="text" id="name" name="name" placeholder="Nazwa Projektu" value="{{ project.name }}" required>
+            </div>
+            <div class="form-group">
+                <label for="surface_area">Powierzchnia (m²):</label>
+                <input type="number" step="0.01" id="surface_area" name="surface_area" placeholder="Powierzchnia (m²)" value="{{ project.surface_area }}" required>
+            </div>
+            <div class="form-group">
+                <label for="tile_length">Długość Płytek (cm):</label>
+                <input type="number" step="0.01" id="tile_length" name="tile_length" placeholder="Długość Płytek (cm)" value="{{ project.tile_length }}" required>
+            </div>
+            <div class="form-group">
+                <label for="tile_width">Szerokość Płytek (cm):</label>
+                <input type="number" step="0.01" id="tile_width" name="tile_width" placeholder="Szerokość Płytek (cm)" value="{{ project.tile_width }}" required>
+            </div>
+            <div class="form-group">
+                <label for="sublayer_thickness">Grubość Podkładu (cm):</label>
+                <input type="number" step="0.01" id="sublayer_thickness" name="sublayer_thickness" placeholder="Grubość Podkładu (cm)" value="{{ project.sublayer_thickness }}" required>
+            </div>
+            <div class="form-group">
+                <label for="base_thickness">Grubość Podłoża (cm):</label>
+                <input type="number" step="0.01" id="base_thickness" name="base_thickness" placeholder="Grubość Podłoża (cm)" value="{{ project.base_thickness }}" required>
+            </div>
+            <div class="form-group">
+                <label for="sand_layer_thickness">Grubość Warstwy Piasku (cm):</label>
+                <input type="number" step="0.01" id="sand_layer_thickness" name="sand_layer_thickness" placeholder="Grubość Warstwy Piasku (cm)" value="{{ project.sand_layer_thickness }}" required>
+            </div>
+            <div class="form-group">
+                <label for="excavation_depth">Głębokość Wykopu (cm):</label>
+                <input type="number" step="0.01" id="excavation_depth" name="excavation_depth" placeholder="Głębokość Wykopu (cm)" value="{{ project.excavation_depth }}" required>
+            </div>
+            <div class="form-group">
+                <label for="joint_width">Szerokość Fugi (cm):</label>
+                <input type="number" step="0.01" id="joint_width" name="joint_width" placeholder="Szerokość Fugi (cm)" value="{{ project.joint_width }}" required>
+            </div>
+            <div class="form-group">
+                <label for="joint_depth">Głębokość Fugi (cm):</label>
+                <input type="number" step="0.01" id="joint_depth" name="joint_depth" placeholder="Głębokość Fugi (cm)" value="{{ project.joint_depth }}" required>
+            </div>
+            <div class="form-group">
+                <label for="border_length">Długość Obrzeża (m):</label>
+                <input type="number" step="0.01" id="border_length" name="border_length" placeholder="Długość Obrzeża (m)" value="{{ project.border_length }}" required>
+            </div>
+            <div class="form-group">
+                <label for="border_subs">Podbudowa Obrzeża (cm):</label>
+                <input type="number" step="0.01" id="border_subs" name="border_subs" placeholder="Podbudowa Obrzeża (cm)" value="{{ project.border_subs }}" required>
+            </div>
+            <div class="form-group">
+                <label for="border_earth">Grubość Warstwy Ziemi (cm):</label>
+                <input type="number" step="0.01" id="border_earth" name="border_earth" placeholder="Grubość Warstwy Ziemi (cm)" value="{{ project.border_earth }}" required>
+            </div>
+            <button type="submit">Zapisz zmiany</button>
+            <a href="{{ url_for('index') }}" class="cancel">Anuluj</a>
+        </form>
+    </div>
+</body>
+
+</html>

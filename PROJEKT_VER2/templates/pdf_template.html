@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projekt PDF</title>
+</head>
+
+<body>
+    <h1>Projekt: {{ project.name }}</h1>
+    <p><strong>Powierzchnia:</strong> {{ project.surface_area }} m²</p>
+    <p><strong>Długosc Plytki:</strong> {{ project.tile_length }} cm</p>
+    <p><strong>Szerokosc Płylki:</strong> {{ project.tile_width }} cm</p>
+    <p><strong>Grubosc Podkładu:</strong> {{ project.sublayer_thickness }} cm</p>
+    <p><strong>Grubosc Podłoza:</strong> {{ project.base_thickness }} cm</p>
+    <p><strong>Grubość Warstwy Piasku:</strong> {{ project.sand_layer_thickness }} cm</p>
+    <p><strong>Głebokosc Wykopu:</strong> {{ project.excavation_depth }} cm</p>
+    <p><strong>Szerokosc Fugi:</strong> {{ project.joint_width }} cm</p>
+    <p><strong>Głębokosc Fugi:</strong> {{ project.joint_depth }} cm</p>
+    <p><strong>Długosc Obrzeza:</strong> {{ project.border_length }} m</p>
+    <p><strong>Podbudowa Obrzeza:</strong> {{ project.border_subs }} cm</p>
+    <p><strong>Grubosc Warstwy Ziemi:</strong> {{ project.border_earth }} cm</p>
+    <p><strong>Ilosc Płytek:</strong> {{ project.tiles | round(2) }}</p>
+    <p><strong>Ilosc Fugi:</strong> {{ project.fugue | round(2) }}</p>
+    <p><strong>Ilosc Podkladu:</strong> {{ project.sublayer | round(2) }}</p>
+    <p><strong>Ilosc Podloża:</strong> {{ project.base | round(2) }}</p>
+    <p><strong>Ilosc Piasku:</strong> {{ project.sand | round(2) }}</p>
+    <p><strong>Ilosc Ziemi:</strong> {{ project.excavation | round(2) }}</p>
+</body>
+
+</html>
